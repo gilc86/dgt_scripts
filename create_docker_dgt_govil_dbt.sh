@@ -20,5 +20,8 @@ echo "clone success"
 echo $DEVSHELL_PROJECT_ID
 export PROJECT_ID=$DEVSHELL_PROJECT_ID
 
-docker build . -f ./dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/dgt_govil_dbt:latest
+docker build . -f ./govil_airflow_k8_dbt/dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/dgt_govil_dbt:latest
 
+echo "docker build success"
+
+docker images

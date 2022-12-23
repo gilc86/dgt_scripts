@@ -22,7 +22,7 @@ export PROJECT_ID=$DEVSHELL_PROJECT_ID
 
 docker build . -f ./$DIRECTORY_REPO/dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/dgt_govil_dbt:latest
 
-echo "docker build success"
+echo docker build success from $DIRECTORY_REPO
 
 docker images
 
@@ -31,3 +31,11 @@ cd /home/gilc/projects/$DIRECTORY_REPO
 export Tag_Version=$(git describe --tags --abbrev=0)
 
 echo $Tag_Version
+
+docker tag eu.gcr.io/$PROJECT_ID/dgt_govil_dbt \eu.gcr.io/$PROJECT_ID/dgt_govil_dbt:$Tag_Version
+
+echo docker tag $Tag_Version
+
+docker push eu.gcr.io/$PROJECT_ID/dgt_govil_dbt:$Tag_Version
+
+echo push docker $Tag_Version success

@@ -13,15 +13,21 @@ if [ -d "$DIRECTORY_REPO" ]; then
 fi
 
 # git
-git clone https://github.com/gilc86/govil_airflow_k8_dbt.git
+git clone https://github.com/gilc86/$DIRECTORY_REPO.git
 echo "clone success"
 
 # docker
 echo $DEVSHELL_PROJECT_ID
 export PROJECT_ID=$DEVSHELL_PROJECT_ID
 
-docker build . -f ./govil_airflow_k8_dbt/dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/dgt_govil_dbt:latest
+docker build . -f ./$DIRECTORY_REPO/dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/dgt_govil_dbt:latest
 
 echo "docker build success"
 
 docker images
+
+cd /home/gilc/projects/$DIRECTORY_REPO
+
+export Tag_Version= $(git describe --tags --abbrev=0)
+
+echo Tag_Version

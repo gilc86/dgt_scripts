@@ -28,6 +28,6 @@ docker images
 
 cd /home/gilc/projects/$DIRECTORY_REPO
 
-export Tag_Version= $(git describe --tags --abbrev=0)
+export Tag_Version=$(git describe --tags --abbrev=0)
 
-echo Tag_Version
+echo $Tag_Version

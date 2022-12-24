@@ -14,7 +14,7 @@ if [ -d "$DIRECTORY_REPO" ]; then
   echo "clone success dgt_scripts"
 fi
 
-cd /$DIRECTORY_REPO
+cd $DIRECTORY_REPO
 
 chmod u+x create_docker_dgt_govil_dbt.sh
 ./create_docker_dgt_govil_dbt.sh

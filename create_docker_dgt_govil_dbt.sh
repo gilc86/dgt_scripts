@@ -33,6 +33,7 @@ export Tag_Version=$(git describe --tags --abbrev=0)
 echo $Tag_Version
 
 docker tag eu.gcr.io/$PROJECT_ID/dgt_govil_dbt \eu.gcr.io/$PROJECT_ID/dgt_govil_dbt:$Tag_Version
+docker images
 
 echo docker tag $Tag_Version
 

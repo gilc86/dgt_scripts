@@ -2,7 +2,11 @@
 echo " exec create docker for dgt_govil_dbt"
 echo "creator: Gil Kal"
 
-cd /home/gilc/projects/
+export userName=$(gcloud config list account --format "value(core.account)")
+export userName=$(cut -d "@" -f1 <<< "$userName")
+echo Name of user: $userName
+
+cd /home/$userName/projects/
 
 # Check the $DIRECTORY_REPO is exists and delete
 DIRECTORY_REPO='dgt_scripts'

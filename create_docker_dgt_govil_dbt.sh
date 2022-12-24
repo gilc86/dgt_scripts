@@ -29,8 +29,6 @@ echo docker build success from $DIRECTORY_REPO
 
 docker images
 
-# cd /home/gilc/projects/$DIRECTORY_REPO
-
 export Tag_Version=$(git describe --tags --abbrev=0)
 
 echo $Tag_Version
@@ -44,7 +42,7 @@ docker push eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
 
 echo push docker $Tag_Version success
 
-echo container images describe eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:1.0.0
+echo container images describe eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
 
 
 

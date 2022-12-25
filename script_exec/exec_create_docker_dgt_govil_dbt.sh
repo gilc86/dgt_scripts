@@ -14,8 +14,8 @@ if [ -d "$DIRECTORY_REPO" ]; then
   echo "$DIRECTORY_REPO does exist."
   rm -rf $DIRECTORY_REPO
   echo "$DIRECTORY_REPO as deleted."
-  # git clone https://github.com/gilc86/$DIRECTORY_REPO.git
-  git clone https://gilc86:gil300202@github.com/gilc86/$DIRECTORY_REPO.git
+  git clone https://github.com/gilc86/$DIRECTORY_REPO.git
+  # git clone https://gilc86:gil300202@github.com/gilc86/$DIRECTORY_REPO.git
   echo "clone success dgt_scripts"
 fi
 

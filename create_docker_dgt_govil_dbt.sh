@@ -30,13 +30,13 @@ echo $Prod_ProjectNameGCP
 case $ProjectNameGCP in
 	$Test_ProjectNameGCP)
 		echo 1111
-		export $composer_environmentName=$test_composer_environmentName
-		export $gcs_composer=$test_gcs_composer
+		$composer_environmentName=$test_composer_environmentName
+		$gcs_composer= $test_gcs_composer
    ;;
 	$Prod_ProjectNameGCP)
 		echo 2222
-		export $composer_environmentName=$test_composer_environmentName
-		export $gcs_composer=$test_gcs_composer
+		$composer_environmentName=$test_composer_environmentName
+		$gcs_composer=$test_gcs_composer
    ;;
 esac
 echo $ProjectNameGCP

@@ -28,7 +28,7 @@ case $ProjectNameGCP in
 	$composer_environmentName=$test_composer_environmentName
 	$gcs_composer=$test_gcs_composer
    ;;
-	$Prod_ProjectNameGCP)) 
+	$Prod_ProjectNameGCP) 
 	$composer_environmentName=$test_composer_environmentName
 	$gcs_composer=$test_gcs_composer
    ;;

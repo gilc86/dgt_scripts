@@ -2,8 +2,12 @@
 export Dbt_project_Name=dgt_govil_dbt
 export userName=$(gcloud config list account --format "value(core.account)")
 export userName=$(cut -d "@" -f1 <<< "$userName")
+export ENVIRONMENT_NAME=composer-dgt-gcp-egov-test-govilbi-2 #compserName
+export LOCATION=europe-west3
 echo $userName
-DIRECTORY_REPO='govil_airflow_k8_dbt'
+export DIRECTORY_REPO=govil_airflow_k8_dbt
+export gcs_composer=europe-west3-composer-dgt-g-97f74c13-bucket
+export Dag_DBT_Name=dgt_airflow_k8_dbt.py
 
 echo create docker for $Dbt_project_Name
 echo "creator: Gil Kal"
@@ -48,6 +52,14 @@ docker push eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
 echo push to docker $Tag_Version success.
 
 echo container images describe eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
+
+#GCS
+echo copy Dag file to gcs
+gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$Dag_DBT_Name gs://$gcs_composer/dags/
+#Composer2
+gcloud composer environments update $ENVIRONMENT_NAME \
+  --location $LOCATION \
+  --update-env-variables=DGT_AIRFLOW_DBT_TAG=$Tag_Version
 
 
 

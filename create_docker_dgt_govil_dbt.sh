@@ -1,5 +1,5 @@
 #!/bin/bash
-export ProjectNameGCP=$(gcloud config get-value project)# Example: dgt-gcp-egov-test-govilbi-0
+export ProjectNameGCP=$(gcloud config get-value project) #Example: dgt-gcp-egov-test-govilbi-0
 export Dbt_project_Name=dgt_govil_dbt
 export Test_ProjectNameGCP=dgt-gcp-egov-test-govilbi-0
 export Prod_ProjectNameGCP=dgt-gcp-egov-prod-govilbi-0

@@ -22,6 +22,10 @@ echo "creator: Gil Kal"
 
 cd /home/$userName/projects/
 
+echo $ProjectNameGCP
+echo $Test_ProjectNameGCP
+echo $Prod_ProjectNameGCP
+
 # Check name $ProjectNameGCP and conig variables Prod or Test
 case $ProjectNameGCP in
 	$Test_ProjectNameGCP)

@@ -33,8 +33,8 @@ case $ProjectNameGCP in
 	$gcs_composer=$test_gcs_composer
    ;;
 esac
-echo The project name $ProjectNameGCP and composer name: $composer_environmentName
-
+echo "The project name " $ProjectNameGCP " and composer name: " $composer_environmentName
+echo "the composer name is: $composer_environmentName"
 
 # Check the $DIRECTORY_REPO is exists and delete Directory
 if [ -d "$DIRECTORY_REPO" ]; then

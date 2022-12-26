@@ -24,16 +24,17 @@ cd /home/$userName/projects/
 
 # Check name $ProjectNameGCP and conig variables Prod or Test
 case $ProjectNameGCP in
-	$Test_ProjectNameGCP) 
-	$composer_environmentName=$test_composer_environmentName
-	$gcs_composer=$test_gcs_composer
+	$Test_ProjectNameGCP)
+	echo 1111
+	export $composer_environmentName=$test_composer_environmentName
+	export $gcs_composer=$test_gcs_composer
    ;;
-	$Prod_ProjectNameGCP) 
-	$composer_environmentName=$test_composer_environmentName
-	$gcs_composer=$test_gcs_composer
+	$Prod_ProjectNameGCP)
+	echo 2222
+	export $composer_environmentName=$test_composer_environmentName
+	export $gcs_composer=$test_gcs_composer
    ;;
 esac
-
 echo $ProjectNameGCP
 echo $composer_environmentName
 echo "The project name " $ProjectNameGCP " and composer name: " $composer_environmentName

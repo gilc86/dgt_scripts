@@ -59,7 +59,7 @@ echo "clone success"
 export Tag_Version=$(git describe --tags --abbrev=0)
 
 ################################################################################
-
+echo $Tag_Version
 export tmp=$(mktemp)
 jq '."Tag_Version" = "'"$Tag_Version"'"' /home/$userName/projects/$DIRECTORY_REPO/dags/config_dgt_airflow_k8_dbt.json > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/dags/config_dgt_airflow_k8_dbt.json
 

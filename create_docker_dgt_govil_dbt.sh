@@ -1,4 +1,5 @@
 #!/bin/bash
+
 export ProjectNameGCP=$(gcloud config get-value project) #Example: dgt-gcp-egov-test-govilbi-0
 export Dbt_project_Name=dgt_govil_dbt
 export Test_ProjectNameGCP=dgt-gcp-egov-test-govilbi-0
@@ -57,6 +58,12 @@ git clone https://github.com/gilc86/$DIRECTORY_REPO.git
 # git clone https://gilc86:gil300202@github.com/gilc86/$DIRECTORY_REPO.git
 echo "clone success"
 
+
+export TAG=1.0.0
+tmp=$(mktemp)
+jq '.address = "abcde"' config_dgt_airflow_k8_dbt.json > "$tmp" && mv "$tmp" config_dgt_airflow_k8_dbt.json
+exit
+
 # docker
 cd /home/$userName/projects/$DIRECTORY_REPO
 echo $DEVSHELL_PROJECT_ID
@@ -86,10 +93,13 @@ echo container images describe eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Vers
 #GCS
 echo copy Dag file to gcs
 gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$Dag_DBT_Name gs://$gcs_composer/dags/
+
+
 #Composer2
 gcloud composer environments update $composer_environmentName \
   --location $LOCATION \
   --update-env-variables=DGT_AIRFLOW_DBT_TAG=$Tag_Version
+  
 
 
 

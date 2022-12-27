@@ -56,6 +56,11 @@ fi
 git clone https://github.com/gilc86/$DIRECTORY_REPO.git
 # git clone https://gilc86:gil300202@github.com/gilc86/$DIRECTORY_REPO.git
 echo "clone success"
+
+# docker
+cd /home/$userName/projects/$DIRECTORY_REPO
+echo $DEVSHELL_PROJECT_ID
+export PROJECT_ID=$DEVSHELL_PROJECT_ID
 export Tag_Version=$(git describe --tags --abbrev=0)
 
 ################################################################################
@@ -65,10 +70,6 @@ jq '."Tag_Version" = "'"$Tag_Version"'"' /home/$userName/projects/$DIRECTORY_REP
 
 exit
 ################################################################################
-# docker
-cd /home/$userName/projects/$DIRECTORY_REPO
-echo $DEVSHELL_PROJECT_ID
-export PROJECT_ID=$DEVSHELL_PROJECT_ID
 
 docker build . -f ./dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:latest
 

@@ -61,11 +61,12 @@ echo $DEVSHELL_PROJECT_ID
 export PROJECT_ID=$DEVSHELL_PROJECT_ID
 export Tag_Version=$(git describe --tags --abbrev=0)
 
+echo DIRECTORY_REPO is: $DIRECTORY_REPO
 echo $Tag_Version
 export tmp=$(mktemp)
 jq '."Tag_Version" = "'"$Tag_Version"'"' /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name
 gsutil cp /home/$userName/projects/$DIRECTORY_REPOt/dags/$dag_config_name gs://europe-west3-composer-dgt-g-97f74c13-bucket/dags/
-
+exit
 ################################################################################
 
 docker build . -f ./dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:latest

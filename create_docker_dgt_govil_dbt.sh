@@ -25,6 +25,7 @@ cd /home/$userName/projects/
 echo $ProjectNameGCP
 echo $Test_ProjectNameGCP
 echo $Prod_ProjectNameGCP
+echo DIRECTORY_REPO is: $DIRECTORY_REPO
 
 # Check name $ProjectNameGCP and conig variables Prod or Test
 case $ProjectNameGCP in
@@ -60,13 +61,18 @@ cd /home/$userName/projects/$DIRECTORY_REPO
 echo $DEVSHELL_PROJECT_ID
 export PROJECT_ID=$DEVSHELL_PROJECT_ID
 export Tag_Version=$(git describe --tags --abbrev=0)
+######################################
 
-echo DIRECTORY_REPO is: $DIRECTORY_REPO
+#GCS
+echo copy Dag file to gcs
+gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$Dag_DBT_Name gs://$gcs_composer/dags/
+
+echo copy config json Dag file to gcs
 echo $Tag_Version
 export tmp=$(mktemp)
 jq '."Tag_Version" = "'"$Tag_Version"'"' /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name
 gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name gs://europe-west3-composer-dgt-g-97f74c13-bucket/dags/
-exit
+
 ################################################################################
 
 docker build . -f ./dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:latest
@@ -87,11 +93,6 @@ docker push eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
 echo push to docker $Tag_Version success.
 
 echo container images describe eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
-
-#GCS
-echo copy Dag file to gcs
-gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$Dag_DBT_Name gs://$gcs_composer/dags/
-
 
 #Composer2
 gcloud composer environments update $composer_environmentName \

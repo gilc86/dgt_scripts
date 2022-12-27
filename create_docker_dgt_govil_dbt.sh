@@ -58,12 +58,13 @@ git clone https://github.com/gilc86/$DIRECTORY_REPO.git
 # git clone https://gilc86:gil300202@github.com/gilc86/$DIRECTORY_REPO.git
 echo "clone success"
 
-
+################################################################################
+cd /home/gilc/projects/govil_airflow_k8_dbt/dags/
 export TAG=1.0.0
 tmp=$(mktemp)
 jq '.address = "abcde"' config_dgt_airflow_k8_dbt.json > "$tmp" && mv "$tmp" config_dgt_airflow_k8_dbt.json
 exit
-
+################################################################################
 # docker
 cd /home/$userName/projects/$DIRECTORY_REPO
 echo $DEVSHELL_PROJECT_ID

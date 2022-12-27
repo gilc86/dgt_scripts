@@ -1,5 +1,4 @@
 #!/bin/bash
-
 export ProjectNameGCP=$(gcloud config get-value project) #Example: dgt-gcp-egov-test-govilbi-0
 export Dbt_project_Name=dgt_govil_dbt
 export Test_ProjectNameGCP=dgt-gcp-egov-test-govilbi-0
@@ -57,12 +56,12 @@ fi
 git clone https://github.com/gilc86/$DIRECTORY_REPO.git
 # git clone https://gilc86:gil300202@github.com/gilc86/$DIRECTORY_REPO.git
 echo "clone success"
+export Tag_Version=$(git describe --tags --abbrev=0)
 
 ################################################################################
-cd /home/gilc/projects/govil_airflow_k8_dbt/dags/
-export TAG=1.0.0
-tmp=$(mktemp)
-jq '.address = "abcde"' config_dgt_airflow_k8_dbt.json > "$tmp" && mv "$tmp" config_dgt_airflow_k8_dbt.json
+
+export tmp=$(mktemp)
+jq '.Tag_Version = $Tag_Version' /home/$userName/projects/$DIRECTORY_REPO/dags/config_dgt_airflow_k8_dbt.json > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/dags/config_dgt_airflow_k8_dbt.json
 exit
 ################################################################################
 # docker
@@ -75,8 +74,6 @@ docker build . -f ./dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:la
 echo docker build success from $DIRECTORY_REPO
 
 docker images
-
-export Tag_Version=$(git describe --tags --abbrev=0)
 
 echo $Tag_Version
 

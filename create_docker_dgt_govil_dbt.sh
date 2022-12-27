@@ -16,7 +16,7 @@ export test_gcs_composer=europe-west3-composer-dgt-g-97f74c13-bucket
 export prod_gcs_composer=europe #change name!!!????
 export gcs_composer
 export Dag_DBT_Name=dgt_airflow_k8_dbt.py
-
+export dag_config_name=config_dgt_airflow_k8_dbt.json
 echo create docker for $Dbt_project_Name
 echo "creator: Gil Kal"
 
@@ -39,11 +39,9 @@ case $ProjectNameGCP in
 		export gcs_composer=$test_gcs_composer
    ;;
 esac
-echo $ProjectNameGCP
-echo $composer_environmentName
+
 echo "The project name " $ProjectNameGCP " and composer name: " $composer_environmentName
-echo "the composer name is: $composer_environmentName"
-echo $composer_environmentName
+
 
 # Check the $DIRECTORY_REPO is exists and delete Directory
 if [ -d "$DIRECTORY_REPO" ]; then
@@ -63,12 +61,11 @@ echo $DEVSHELL_PROJECT_ID
 export PROJECT_ID=$DEVSHELL_PROJECT_ID
 export Tag_Version=$(git describe --tags --abbrev=0)
 
-################################################################################
 echo $Tag_Version
 export tmp=$(mktemp)
-jq '."Tag_Version" = "'"$Tag_Version"'"' /home/$userName/projects/$DIRECTORY_REPO/dags/config_dgt_airflow_k8_dbt.json > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/dags/config_dgt_airflow_k8_dbt.json
+jq '."Tag_Version" = "'"$Tag_Version"'"' /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name
+gsutil cp /home/$userName/projects/$DIRECTORY_REPOt/dags/$dag_config_name gs://europe-west3-composer-dgt-g-97f74c13-bucket/dags/
 
-exit
 ################################################################################
 
 docker build . -f ./dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:latest

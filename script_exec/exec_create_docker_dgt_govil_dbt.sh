@@ -6,6 +6,9 @@ export userName=$(gcloud config list account --format "value(core.account)")
 export userName=$(cut -d "@" -f1 <<< "$userName")
 echo Name of user: $userName
 
+mkdir -p /home/$userName/projects/script_exec
+cp /home/$userName/projects/dgt_scripts/script_exec/exec_create_docker_dgt_govil_dbt.sh /home/$userName/projects/script_exec
+chmod u+x /home/$userName/projects/script_exec/exec_create_docker_dgt_govil_dbt.sh
 cd /home/$userName/projects/
 
 # Check the $DIRECTORY_REPO is exists and delete

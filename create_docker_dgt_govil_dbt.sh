@@ -36,8 +36,8 @@ case $ProjectNameGCP in
    ;;
 	$Prod_ProjectNameGCP)
 		echo 2222
-		export composer_environmentName=$test_composer_environmentName
-		export gcs_composer=$test_gcs_composer
+		export composer_environmentName=$prod_composer_environmentName
+		export gcs_composer=$prod_composer_environmentName
    ;;
 esac
 

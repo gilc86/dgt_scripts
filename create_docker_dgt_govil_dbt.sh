@@ -13,7 +13,7 @@ echo $userName
 export DIRECTORY_REPO=govil_airflow_k8_dbt
 
 export test_gcs_composer=europe-west3-composer-dgt-g-97f74c13-bucket
-export prod_gcs_composer=europe #change name!!!????
+export prod_gcs_composer=europe-west3-composer-dgt-g-8d23b7e3-bucket #change name!!!????
 export gcs_composer
 export Dag_DBT_Name=dgt_airflow_k8_dbt.py
 export dag_config_name=config_dgt_airflow_k8_dbt.json

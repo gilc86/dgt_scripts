@@ -91,6 +91,7 @@ echo image docker tag is: $Tag_Version
 docker push eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
 
 echo push to docker $Tag_Version success.
+echo path push: eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
 
 echo container images describe eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
 

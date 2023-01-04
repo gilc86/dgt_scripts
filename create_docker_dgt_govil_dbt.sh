@@ -39,7 +39,7 @@ case $ProjectNameGCP in
 	$Prod_ProjectNameGCP)
 		echo 2222
 		export composer_environmentName=$prod_composer_environmentName
-		export gcs_composer=$prod_composer_environmentName
+		export gcs_composer=$prod_gcs_composer
    ;;
 esac
 
@@ -98,7 +98,7 @@ echo image docker tag is: $Tag_Version
 docker push $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version         
 
 echo push to docker $Tag_Version success.
-echo path push: $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version         
+echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version         
 
 
 #Composer2

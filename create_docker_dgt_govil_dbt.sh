@@ -3,6 +3,7 @@ export ProjectNameGCP=$(gcloud config get-value project) #Example: dgt-gcp-egov-
 export Dbt_project_Name=dgt_govil_dbt
 export Test_ProjectNameGCP=dgt-gcp-egov-test-govilbi-0
 export Prod_ProjectNameGCP=dgt-gcp-egov-prod-govilbi-0
+export registry_ProjectName=dgt-gcp-egov-registry-0
 export userName=$(gcloud config list account --format "value(core.account)")
 export userName=$(cut -d "@" -f1 <<< "$userName")
 export test_composer_environmentName=composer-dgt-gcp-egov-test-govilbi-2 #compserName
@@ -17,6 +18,7 @@ export prod_gcs_composer=europe-west3-composer-dgt-g-8d23b7e3-bucket #change nam
 export gcs_composer
 export Dag_DBT_Name=dgt_airflow_k8_dbt.py
 export dag_config_name=config_dgt_airflow_k8_dbt.json
+export artifact_registry=me-west1-docker.pkg.dev
 echo create docker for $Dbt_project_Name
 echo "creator: Gil Kal"
 
@@ -64,7 +66,7 @@ export Tag_Version=$(git describe --tags --abbrev=0)
 ######################################
 
 #GCS
-echo copy Dag file to gcs
+echo copy Dag file to gcs composer:  $gcs_composer
 gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$Dag_DBT_Name gs://$gcs_composer/dags/
 
 echo copy config json Dag file to gcs
@@ -75,31 +77,40 @@ gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name gs://eu
 
 ################################################################################
 
-docker build . -f ./dbt/Dockerfile -t eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:latest
+gcloud config set project $registry_ProjectName #Change project
 
-echo docker build success from $DIRECTORY_REPO
+docker build . -f ./dbt/Dockerfile -t $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:latest
+
+echo docker build success from: $DIRECTORY_REPO
 
 docker images
 
 echo $Tag_Version
+docker tag \
+$artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name \
+$artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
 
-docker tag eu.gcr.io/$PROJECT_ID/$Dbt_project_Name \eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
+# docker tag eu.gcr.io/$PROJECT_ID/$Dbt_project_Name \eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
 docker images
 
 echo image docker tag is: $Tag_Version
 
-docker push eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
+docker push $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version         
 
 echo push to docker $Tag_Version success.
-echo path push: eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
+echo path push: $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version         
 
-echo container images describe eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
 
 #Composer2
-gcloud composer environments update $composer_environmentName \
-  --location $LOCATION \
-  --update-env-variables=DGT_AIRFLOW_DBT_TAG=$Tag_Version
+# gcloud composer environments update $composer_environmentName \
+#   --location $LOCATION \
+#   --update-env-variables=DGT_AIRFLOW_DBT_TAG=$Tag_Version
   
 
+# cd /home/gilc/projects/govil_airflow_k8_dbt
+# docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/dgt-gcp-egov-test-govilbi-0/bi-team/dgt_govil_dbt:latest
+# docker tag me-west1-docker.pkg.dev/dgt-gcp-egov-test-govilbi-0/bi-team/dgt_govil_dbt \me-west1-docker.pkg.dev/dgt-gcp-egov-test-govilbi-0/bi-team/dgt_govil_dbt:1.0.2
+# docker push me-west1-docker.pkg.dev/dgt-gcp-egov-test-govilbi-0/bi-team/dgt_govil_dbt:1.0.2
 
+# gcloud config set project dgt-gcp-egov-registry-0
 

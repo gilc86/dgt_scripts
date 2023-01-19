@@ -78,8 +78,10 @@ gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name gs://$g
 ################################################################################
 
 gcloud config set project $registry_ProjectName #Change project
+echo Change config project: $registry_ProjectName
 
 docker build . -f ./dbt/Dockerfile -t $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:latest
+# docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/
 
 echo docker build success from: $DIRECTORY_REPO
 
@@ -100,7 +102,8 @@ docker push $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Db
 echo push to docker $Tag_Version success.
 echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version         
 
-
+gcloud config set project $ProjectNameGCP
+echo Change config project: $ProjectNameGCP
 #Composer2
 # gcloud composer environments update $composer_environmentName \
 #   --location $LOCATION \
@@ -108,9 +111,9 @@ echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_
   
 
 # cd /home/gilc/projects/govil_airflow_k8_dbt
-# docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/dgt-gcp-egov-test-govilbi-0/bi-team/dgt_govil_dbt:latest
-# docker tag me-west1-docker.pkg.dev/dgt-gcp-egov-test-govilbi-0/bi-team/dgt_govil_dbt \me-west1-docker.pkg.dev/dgt-gcp-egov-test-govilbi-0/bi-team/dgt_govil_dbt:1.0.2
-# docker push me-west1-docker.pkg.dev/dgt-gcp-egov-test-govilbi-0/bi-team/dgt_govil_dbt:1.0.2
+# docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/dgt_govil_dbt:latest
+# docker tag me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/dgt_govil_dbt \me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/dgt_govil_dbt:1.0.0
+# docker push me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/dgt_govil_dbt:1.0.0
 
 # gcloud config set project dgt-gcp-egov-registry-0
 

@@ -77,27 +77,35 @@ gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name gs://$g
 
 ################################################################################
 
-gcloud config set project $registry_ProjectName #Change project
-echo Change config project: $registry_ProjectName
+# gcloud config set project $registry_ProjectName #Change project
+# echo Change config project: $registry_ProjectName
 
-docker build . -f ./dbt/Dockerfile -t $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:latest
+# docker build . -f ./dbt/Dockerfile -t $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:latest
+docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_project_Name:latest
 # docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/
 
 echo docker build success from: $DIRECTORY_REPO
 
 docker images
 
+# echo $Tag_Version
+# docker tag \
+# $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name \
+# $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
+
 echo $Tag_Version
 docker tag \
-$artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name \
-$artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
+$artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name \
+$artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version
+
 
 # docker tag eu.gcr.io/$PROJECT_ID/$Dbt_project_Name \eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
 docker images
 
 echo image docker tag is: $Tag_Version
 
-docker push $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version         
+# docker push $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
+docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
 
 echo push to docker $Tag_Version success.
 echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version         

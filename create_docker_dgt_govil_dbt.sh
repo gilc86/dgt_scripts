@@ -108,20 +108,23 @@ echo image docker tag is: $Tag_Version
 docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
 
 echo push to docker $Tag_Version success.
-echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version         
+#echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
+echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version       
 
-gcloud config set project $ProjectNameGCP
-echo Change config project: $ProjectNameGCP
+# gcloud config set project $ProjectNameGCP
+# echo Change config project: $ProjectNameGCP
+
+
 #Composer2
 # gcloud composer environments update $composer_environmentName \
 #   --location $LOCATION \
 #   --update-env-variables=DGT_AIRFLOW_DBT_TAG=$Tag_Version
   
-
+# export $ProjectNameGCP=dgt-gcp-egov-test-govilbi-0
 # cd /home/gilc/projects/govil_airflow_k8_dbt
 # docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/dgt_govil_dbt:latest
 # docker tag me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/dgt_govil_dbt \me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/dgt_govil_dbt:1.0.0
 # docker push me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/dgt_govil_dbt:1.0.0
-
+# docker push me-west1-docker.pkg.dev/dgt-gcp-egov-test-govilbi-0/bi-team/dgt_govil_dbt:1.0.2
 # gcloud config set project dgt-gcp-egov-registry-0
 

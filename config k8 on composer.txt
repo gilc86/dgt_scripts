@@ -1,0 +1,15 @@
+gcloud container clusters get-credentials europe-west3-private-compos-2cf63805-gke --region europe-west3 --project dgt-gcp-egov-prod-govilbi-0
+
+kubectl create namespace k8-executor
+
+kubectl create serviceaccount composer --namespace k8-executor
+
+gcloud iam service-accounts add-iam-policy-binding composer1@dgt-gcp-egov-prod-govilbi-0.iam.gserviceaccount.com \
+    --role roles/iam.workloadIdentityUser \
+    --member "serviceAccount:dgt-gcp-egov-prod-govilbi-0.svc.id.goog[k8-executor/composer1]"
+	
+kubectl annotate serviceaccount composer \
+    --namespace k8-executor \
+    iam.gke.io/gcp-service-account=composer@dgt-gcp-egov-prod-govilbi-0.iam.gserviceaccount.com
+	
+	

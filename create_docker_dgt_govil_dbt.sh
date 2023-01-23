@@ -18,8 +18,8 @@ export prod_gcs_composer=europe-west3-composer-dgt-g-8d23b7e3-bucket #change nam
 export gcs_composer
 export Dag_DBT_Name=dgt_airflow_k8_dbt.py
 export dag_config_name=config_dgt_airflow_k8_dbt.json
-export artifact_registry=me-west1-docker.pkg.dev
-# export artifact_registry=eu.gcr.io //1.0.4
+# export artifact_registry=me-west1-docker.pkg.dev
+export artifact_registry=eu.gcr.io //1.0.4
 echo create docker for $Dbt_project_Name
 echo "creator: Gil Kal"
 
@@ -82,9 +82,9 @@ gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name gs://$g
 
 # gcloud config set project $registry_ProjectName #Change project
 # echo Change config project: $registry_ProjectName
-# docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/$Dbt_project_Name:latest //1.0.4
+docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/$Dbt_project_Name:latest //1.0.4
 # docker build . -f ./dbt/Dockerfile -t $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:latest
-  docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest
+# docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest
 # docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/
 
 echo docker build success from: $DIRECTORY_REPO
@@ -97,14 +97,14 @@ echo $Tag_Version
 # $artifact_registry/$registry_ProjectName/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
 
 # //1.0.4
-# docker tag \
-# $artifact_registry/$ProjectNameGCP/$Dbt_project_Name \
-# $artifact_registry/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
-
-echo $Tag_Version
 docker tag \
-$artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name \
-$artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version
+$artifact_registry/$ProjectNameGCP/$Dbt_project_Name \
+$artifact_registry/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
+
+# echo $Tag_Version
+# docker tag \
+# $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name \
+# $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version
 
 
 # docker tag eu.gcr.io/$PROJECT_ID/$Dbt_project_Name \eu.gcr.io/$PROJECT_ID/$Dbt_project_Name:$Tag_Version
@@ -114,8 +114,8 @@ echo image docker tag is: $Tag_Version
 
 # docker push $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
 # docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
-docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
-# docker push $artifact_registry/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version //1.0.4
+# docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
+docker push $artifact_registry/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version //1.0.4
 echo push to docker $Tag_Version success.
 #echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
 echo path push: $artifact_registry/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version       

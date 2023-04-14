@@ -83,6 +83,7 @@ gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name gs://$g
 # gcloud config set project $registry_ProjectName #Change project
 # echo Change config project: $registry_ProjectName
 docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/$Dbt_project_Name:latest #//1.0.4
+docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/$ProjectNameGCP/$Dbt_project_Name:latest #//1.0.6
 # docker build . -f ./dbt/Dockerfile -t $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:latest
 # docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest
 # docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/

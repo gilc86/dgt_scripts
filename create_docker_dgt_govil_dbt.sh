@@ -1,25 +1,26 @@
 #!/bin/bash
+#me-west1-docker.pkg.dev/dgt-gcp-egov-test-govilbi-0/bi-team
 export ProjectNameGCP=$(gcloud config get-value project) #Example: dgt-gcp-egov-test-govilbi-0
 export Dbt_project_Name=dgt_govil_dbt
 export Test_ProjectNameGCP=dgt-gcp-egov-test-govilbi-0
 export Prod_ProjectNameGCP=dgt-gcp-egov-prod-govilbi-0
-export registry_ProjectName=dgt-gcp-egov-registry-0
+export registry_ProjectName=dgt-gcp-egov-registry-0 #to be deleted
 export userName=$(gcloud config list account --format "value(core.account)")
 export userName=$(cut -d "@" -f1 <<< "$userName")
-export test_composer_environmentName=composer-dgt-gcp-egov-test-govilbi-2 #compserName
+export test_composer_environmentName=composer-dgt-gcp-egov-test-govilbi-0 #compserName
 export prod_composer_environmentName=composer-dgt-gcp-egov-prod-govilbi-2 #compserName change name!!!????
 export composer_environmentName
-export LOCATION=europe-west3
+export LOCATION=europe-west3 #to be deleted
 echo $userName
 export DIRECTORY_REPO=govil_airflow_k8_dbt
 
-export test_gcs_composer=europe-west3-composer-dgt-g-97f74c13-bucket
-export prod_gcs_composer=europe-west3-composer-dgt-g-8d23b7e3-bucket #change name!!!????
+export test_gcs_composer=me-west1-composer-dgt-gcp-e-264dbc42-bucket
+export prod_gcs_composer=me-west1-composer-dgt-gcp-e-264dbc42-bucket #change name!!!????
 export gcs_composer
 export Dag_DBT_Name=dgt_airflow_k8_dbt.py
 export dag_config_name=config_dgt_airflow_k8_dbt.json
-# export artifact_registry=me-west1-docker.pkg.dev
-export artifact_registry=eu.gcr.io #//1.0.4
+export artifact_registry=me-west1-docker.pkg.dev
+# export artifact_registry=eu.gcr.io #//1.0.4
 echo create docker for $Dbt_project_Name
 echo "creator: Gil Kal"
 
@@ -31,6 +32,7 @@ echo $Prod_ProjectNameGCP
 echo DIRECTORY_REPO is: $DIRECTORY_REPO
 
 # Check name $ProjectNameGCP and conig variables Prod or Test
+
 case $ProjectNameGCP in
 	$Test_ProjectNameGCP)
 		echo 1111
@@ -56,7 +58,6 @@ fi
 
 # git
 git clone https://github.com/gilc86/$DIRECTORY_REPO.git
-# git clone https://gilc86:gil300202@github.com/gilc86/$DIRECTORY_REPO.git
 echo "clone success"
 
 # docker
@@ -82,8 +83,8 @@ gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name gs://$g
 
 # gcloud config set project $registry_ProjectName #Change project
 # echo Change config project: $registry_ProjectName
-docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/$Dbt_project_Name:latest #//1.0.4
-docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/$ProjectNameGCP/$Dbt_project_Name:latest #//1.0.6
+docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest #//1.1.0
+# docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest #//1.0.6
 # docker build . -f ./dbt/Dockerfile -t $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:latest
 # docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest
 # docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/dgt-gcp-egov-prod-govilbi-0/bi-team/

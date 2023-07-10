@@ -117,10 +117,10 @@ echo image docker tag is: $Tag_Version
 # docker push $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
 # docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
 # docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
-docker push $artifact_registry/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version #//1.0.4
+docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version #//1.0.4
 echo push to docker $Tag_Version success.
 #echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
-echo path push: $artifact_registry/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version       
+echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version       
 
 # gcloud config set project $ProjectNameGCP
 # echo Change config project: $ProjectNameGCP

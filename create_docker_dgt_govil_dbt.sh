@@ -100,8 +100,8 @@ echo $Tag_Version
 
 # //1.0.4
 docker tag \
-$artifact_registry/$ProjectNameGCP/$Dbt_project_Name \
-$artifact_registry/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
+$artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name \
+$artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version
 
 # echo $Tag_Version
 # docker tag \

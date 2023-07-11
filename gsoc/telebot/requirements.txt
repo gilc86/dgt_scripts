@@ -1,0 +1,4 @@
+telethon
+google-cloud-storage
+google-cloud-bigquery
+pandas

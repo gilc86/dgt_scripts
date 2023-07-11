@@ -1,0 +1,17 @@
+# Use the official Python image as the base image
+FROM python:3.9
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the script and configuration file to the container
+COPY TeleBot.py config.json /app/
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install the required Python packages
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# Run the Python script when the container starts
+CMD ["python", "TeleBot.py"]

@@ -19,8 +19,10 @@ export prod_gcs_composer=me-west1-composer-dgt-gcp-e-264dbc42-bucket #change nam
 export gcs_composer
 export Dag_DBT_Name=dgt_airflow_k8_dbt.py
 export dag_config_name=config_dgt_airflow_k8_dbt.json
+# export artifact_registry=me-west1-docker.pkg.dev
 export artifact_registry=me-west1-docker.pkg.dev
 # export artifact_registry=eu.gcr.io #//1.0.4
+export doker_repository_name=dataops-doker-dbt-repo
 echo create docker for $Dbt_project_Name
 echo "creator: Gil Kal"
 
@@ -83,7 +85,7 @@ gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name gs://$g
 
 # gcloud config set project $registry_ProjectName #Change project
 # echo Change config project: $registry_ProjectName
-docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest #//1.1.0
+docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name:latest #//1.1.0
 # docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest #//1.0.6
 # docker build . -f ./dbt/Dockerfile -t $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:latest
 # docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest
@@ -100,8 +102,8 @@ echo $Tag_Version
 
 # //1.0.4
 docker tag \
-$artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name \
-$artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version
+$artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name \
+$artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name:$Tag_Version
 
 # echo $Tag_Version
 # docker tag \
@@ -117,10 +119,10 @@ echo image docker tag is: $Tag_Version
 # docker push $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
 # docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
 # docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
-docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version #//1.0.4
+docker push $artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name:$Tag_Version #//1.0.4
 echo push to docker $Tag_Version success.
 #echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
-echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version       
+echo path push: $artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name:$Tag_Version       
 
 # gcloud config set project $ProjectNameGCP
 # echo Change config project: $ProjectNameGCP

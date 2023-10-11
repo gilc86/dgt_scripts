@@ -7,15 +7,15 @@ export Prod_ProjectNameGCP=dgt-gcp-egov-prod-govilbi-0
 export registry_ProjectName=dgt-gcp-egov-registry-0 #to be deleted
 export userName=$(gcloud config list account --format "value(core.account)")
 export userName=$(cut -d "@" -f1 <<< "$userName")
-export test_composer_environmentName=composer-dgt-gcp-egov-test-govilbi-0 #compserName
+export test_composer_environmentName=composer-dgt-gcp-egov-test-govilbi-2 #compserName
 export prod_composer_environmentName=composer-dgt-gcp-egov-prod-govilbi-2 #compserName change name!!!????
 export composer_environmentName
-export LOCATION=europe-west3 #to be deleted
+# export LOCATION=europe-west3 #to be deleted
 echo $userName
 export DIRECTORY_REPO=govil_airflow_k8_dbt
 
-export test_gcs_composer=me-west1-composer-dgt-gcp-e-264dbc42-bucket
-export prod_gcs_composer=me-west1-composer-dgt-gcp-e-264dbc42-bucket #change name!!!????
+export test_gcs_composer=me-west1-composer-dgt-gcp-e-40315794-bucket
+export prod_gcs_composer=me-west1-composer-dgt-gcp-e-40315794-bucket #change name!!!????
 export gcs_composer
 export Dag_DBT_Name=dgt_airflow_k8_dbt.py
 export dag_config_name=config_dgt_airflow_k8_dbt.json
@@ -119,7 +119,7 @@ echo image docker tag is: $Tag_Version
 # docker push $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
 # docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
 # docker push $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:$Tag_Version         
-docker push $artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name:$Tag_Version #//1.0.4
+docker push $artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name:$Tag_Version #//1.1.2
 echo push to docker $Tag_Version success.
 #echo path push: $artifact_registry/$ProjectNameGCP/bi-team/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
 echo path push: $artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name:$Tag_Version       

@@ -2,7 +2,7 @@
 echo " exec create docker for dgt_govil_dbt"
 echo "creator: Gil Kal"
 export DIRECTORY_REPO=govil_airflow_k8_dbt
-git clone https://github.com/gilc86/$DIRECTORY_REPO.git #// לא רלוונטי!!
+git clone https://github.com/gilc86/$DIRECTORY_REPO.git 
 export userName=$(gcloud config list account --format "value(core.account)")
 export userName=$(cut -d "@" -f1 <<< "$userName")
 echo Name of user: $userName

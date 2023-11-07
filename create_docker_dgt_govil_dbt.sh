@@ -71,15 +71,15 @@ export Tag_Version=$(git describe --tags --abbrev=0)
 
 #GCS
 echo copy Dag file to gcs composer:  $gcs_composer
-gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/ gs://$gcs_composer/dags/
+gsutil cp /home/$userName/projects/$DIRECTORY_REPO/$test_composer_environmentName/dags/ gs://$gcs_composer/dags/
 
 echo copy config json Dag file to gcs
 echo $Tag_Version
 export tmp=$(mktemp)
-jq '."Tag_Version" = "'"$Tag_Version"'"' /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name
-jq '."artifact_registry" = "'"$artifact_registry"'"' /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name
-jq '."Dbt_project_Name" = "'"$Dbt_project_Name"'"' /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name
-gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name gs://$gcs_composer/dags/
+jq '."Tag_Version" = "'"$Tag_Version"'"' /home/$userName/projects/$DIRECTORY_REPO/$test_composer_environmentName/dags/$dag_config_name > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/$test_composer_environmentName/dags/$dag_config_name
+jq '."artifact_registry" = "'"$artifact_registry"'"' /home/$userName/projects/$DIRECTORY_REPO/$test_composer_environmentName/dags/$dag_config_name > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/$test_composer_environmentName/dags/$dag_config_name
+jq '."Dbt_project_Name" = "'"$Dbt_project_Name"'"' /home/$userName/projects/$DIRECTORY_REPO/$test_composer_environmentName/dags/$dag_config_name > "$tmp" && mv "$tmp" /home/$userName/projects/$DIRECTORY_REPO/$test_composer_environmentName/dags/$dag_config_name
+gsutil cp /home/$userName/projects/$DIRECTORY_REPO/$test_composer_environmentName/dags/$dag_config_name gs://$gcs_composer/dags/
 
 ################################################################################
 

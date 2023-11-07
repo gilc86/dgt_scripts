@@ -4,13 +4,19 @@ kubectl create namespace k8-executor
 
 kubectl create serviceaccount composer1 --namespace k8-executor
 
-gcloud iam service-accounts add-iam-policy-binding composer1@dgt-gcp-egov-prod-govilbi-0.iam.gserviceaccount.com \
+gcloud iam service-accounts add-iam-policy-binding composer1@dgt-gcp-egov-test-govilbi-0.iam.gserviceaccount.com \
     --role roles/iam.workloadIdentityUser \
-    --member "serviceAccount:dgt-gcp-egov-prod-govilbi-0.svc.id.goog[k8-executor/composer1]"
+    --member "serviceAccount:dgt-gcp-egov-test-govilbi-0.svc.id.goog[k8-executor/composer1]"
 	
-kubectl annotate serviceaccount composer \
+kubectl annotate serviceaccount composer1 \
     --namespace k8-executor \
-    iam.gke.io/gcp-service-account=composer@dgt-gcp-egov-prod-govilbi-0.iam.gserviceaccount.com
+    iam.gke.io/gcp-service-account=composer1@dgt-gcp-egov-test-govilbi-0.iam.gserviceaccount.com
+
+kubectl auth can-i list pods --namespace=k8-executor --as=composer1 
+
+kubectl apply -f createListRole.yml
+
+kubectl apply -f roleBinding.yml
 ############################
 ############################
 ############################

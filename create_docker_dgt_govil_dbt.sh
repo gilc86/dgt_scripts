@@ -37,12 +37,12 @@ echo DIRECTORY_REPO is: $DIRECTORY_REPO
 
 case $ProjectNameGCP in
 	$Test_ProjectNameGCP)
-		echo 1111
+		echo 1111 "- Test Env " $ProjectNameGCP
 		export composer_environmentName=$test_composer_environmentName
 		export gcs_composer=$test_gcs_composer
    ;;
 	$Prod_ProjectNameGCP)
-		echo 2222
+		echo 2222 "- Prod Env " $ProjectNameGCP
 		export composer_environmentName=$prod_composer_environmentName
 		export gcs_composer=$prod_gcs_composer
    ;;
@@ -71,7 +71,7 @@ export Tag_Version=$(git describe --tags --abbrev=0)
 
 #GCS
 echo copy Dag file to gcs composer:  $gcs_composer
-gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$Dag_DBT_Name gs://$gcs_composer/dags/
+gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/ gs://$gcs_composer/dags/
 
 echo copy config json Dag file to gcs
 echo $Tag_Version
@@ -85,7 +85,7 @@ gsutil cp /home/$userName/projects/$DIRECTORY_REPO/dags/$dag_config_name gs://$g
 
 # gcloud config set project $registry_ProjectName #Change project
 # echo Change config project: $registry_ProjectName
-docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name:latest #//1.1.0
+docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name:latest
 # docker build . -f ./dbt/Dockerfile -t me-west1-docker.pkg.dev/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest #//1.0.6
 # docker build . -f ./dbt/Dockerfile -t $artifact_registry/$registry_ProjectName/bi-team/$ProjectNameGCP/$Dbt_project_Name:latest
 # docker build . -f ./dbt/Dockerfile -t $artifact_registry/$ProjectNameGCP/bi-team/$Dbt_project_Name:latest
@@ -100,7 +100,7 @@ echo $Tag_Version
 # $artifact_registry/$registry_ProjectName/$ProjectNameGCP/$Dbt_project_Name \
 # $artifact_registry/$registry_ProjectName/$ProjectNameGCP/$Dbt_project_Name:$Tag_Version
 
-# //1.0.4
+
 docker tag \
 $artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name \
 $artifact_registry/$ProjectNameGCP/$doker_repository_name/$Dbt_project_Name:$Tag_Version

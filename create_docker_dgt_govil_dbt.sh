@@ -71,7 +71,7 @@ export Tag_Version=$(git describe --tags --abbrev=0)
 
 #GCS
 echo copy Dag file to gcs composer:  $gcs_composer
-gsutil cp /home/$userName/projects/$DIRECTORY_REPO/EnvDags/$test_composer_environmentName/dags/ gs://$gcs_composer/dags/
+gsutil cp -r /home/$userName/projects/$DIRECTORY_REPO/EnvDags/$test_composer_environmentName/dags/ gs://$gcs_composer/dags/
 
 echo copy config json Dag file to gcs
 echo $Tag_Version
